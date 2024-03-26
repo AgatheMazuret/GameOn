@@ -231,6 +231,9 @@ input[data-error]::after {
     font-size: 0.4em;
     color: red;
 } */
+.error-field {
+  border: 2px solid red; /* Ajoute un contour rouge */
+}
 
 .error {
   color: red;

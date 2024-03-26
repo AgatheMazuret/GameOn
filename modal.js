@@ -68,6 +68,13 @@ function validateForm() {
   document.getElementById('errorQuantity').innerHTML = '';
   document.getElementById('errorCheckbox').innerHTML = '';
 
+  // Supprimer les classes d'erreur précédentes
+  document.getElementById('first').classList.remove('error-field');
+  document.getElementById('last').classList.remove('error-field');
+  document.getElementById('email').classList.remove('error-field');
+  document.getElementById('birthdate').classList.remove('error-field');
+  document.getElementById('quantity').classList.remove('error-field');
+
   // Variable pour stocker les messages d'erreur
   var errors = '';
 
@@ -75,35 +82,41 @@ function validateForm() {
   if (first.length < 2 || first.trim() === "") {
     document.getElementById('errorFirst').innerHTML = "Le prénom doit contenir au moins 2 caractères.";
     errors += "Le prénom doit contenir au moins 2 caractères.\n";
+    document.getElementById('first').classList.add('error-field'); // Ajoute la classe pour le champ du prénom
   }
 
   // Validation du nom
   if (last.length < 2 || last.trim() === "") {
     document.getElementById('errorLast').innerHTML = "Le nom doit contenir au moins 2 caractères.";
     errors += "Le nom doit contenir au moins 2 caractères.\n";
+    document.getElementById('last').classList.add('error-field'); // Ajoute la classe pour le champ du nom
   }
 
   // Validation de l'email
   var re = /\S+@\S+\.\S+/; // Expression régulière pour valider l'email
 
-if (email.trim() === "") {
-  document.getElementById('errorEmail').innerHTML = "Veuillez saisir votre adresse email.";
-  errors += "Veuillez saisir votre adresse email.\n";
-} else if (!re.test(email)) {
-  document.getElementById('errorEmail').innerHTML = "Veuillez saisir une adresse email valide.";
-  errors += "Veuillez saisir une adresse email valide.\n";
-}
+  if (email.trim() === "") {
+    document.getElementById('errorEmail').innerHTML = "Veuillez saisir votre adresse email.";
+    errors += "Veuillez saisir votre adresse email.\n";
+    document.getElementById('email').classList.add('error-field'); // Ajoute la classe pour le champ de l'email
+  } else if (!re.test(email)) {
+    document.getElementById('errorEmail').innerHTML = "Veuillez saisir une adresse email valide.";
+    errors += "Veuillez saisir une adresse email valide.\n";
+    document.getElementById('email').classList.add('error-field'); // Ajoute la classe pour le champ de l'email
+  }
 
   // Validation de la date de naissance
   if (birthdate.trim() === "") {
     document.getElementById('errorBirthdate').innerHTML = "Veuillez saisir votre date de naissance.";
     errors += "Veuillez saisir votre date de naissance.\n";
+    document.getElementById('birthdate').classList.add('error-field'); // Ajoute la classe pour le champ de la date de naissance
   }
 
   // Validation du nombre de tournois
   if (isNaN(quantity) || quantity.trim() === "") {
     document.getElementById('errorQuantity').innerHTML = "Veuillez saisir un nombre pour le nombre de concours.";
     errors += "Veuillez saisir un nombre pour le nombre de concours.\n";
+    document.getElementById('quantity').classList.add('error-field'); // Ajoute la classe pour le champ du nombre de concours
   }
 
   // Validation de la sélection de l'emplacement
