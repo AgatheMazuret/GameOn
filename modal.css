@@ -234,7 +234,7 @@ input[data-error]::after {
 
 .error {
   color: red;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .checkbox-label,
