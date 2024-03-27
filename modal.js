@@ -52,13 +52,6 @@ function validateForm() {
   var email = document.getElementById('email').value;
   var birthdate = document.getElementById('birthdate').value;
   var quantity = document.getElementById('quantity').value;
-  var location1 = document.getElementById('location1').checked;
-  var location2 = document.getElementById('location2').checked;
-  var location3 = document.getElementById('location3').checked;
-  var location4 = document.getElementById('location4').checked;
-  var location5 = document.getElementById('location5').checked;
-  var location6 = document.getElementById('location6').checked;
-  var checkbox1 = document.getElementById('checkbox1').checked;
 
   // Réinitialiser les messages d'erreur précédents
   document.getElementById('errorFirst').innerHTML = '';
@@ -120,17 +113,30 @@ function validateForm() {
   }
 
   // Validation de la sélection de l'emplacement
-  
+  var location1 = document.getElementById('location1').checked;
+  var location2 = document.getElementById('location2').checked;
+  var location3 = document.getElementById('location3').checked;
+  var location4 = document.getElementById('location4').checked;
+  var location5 = document.getElementById('location5').checked;
+  var location6 = document.getElementById('location6').checked;
 
   // Validation de l'acceptation des conditions générales
- 
+  var checkbox1 = document.getElementById('checkbox1').checked;
+  var messageElement = document.querySelector("#errorCheckbox");
+
+  if (!checkbox1) {
+    messageElement.innerText = "Veuillez accepter les conditions d'utilisation."; // Affiche un message d'erreur
+    errors += "Veuillez accepter les conditions d'utilisation.\n";
+  } else {
+    messageElement.innerText = ""; // Efface le message d'erreur s'il était déjà affiché
+  }
 
   // Afficher tous les messages d'erreur ensemble
   if (errors !== '') {
     return false;
   }
 
-  // Affichage du message de confirmation
+  // Affichage du message de confirmation uniquement si tout est valide
   alert("Merci ! Votre réservation a été reçue.");
   return true; // Le formulaire est valide, renvoie true seulement si toutes les validations sont réussies
 }
