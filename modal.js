@@ -45,15 +45,13 @@ function closeModal() {
   modalbg.style.display = "none";
 }
 
-// Fonction pour valider le formulaire
 function validateForm() {
-  var first = document.getElementById('first').value;
-  var last = document.getElementById('last').value;
-  var email = document.getElementById('email').value;
-  var birthdate = document.getElementById('birthdate').value;
-  var quantity = document.getElementById('quantity').value;
+  const first = document.getElementById('first').value;
+  const last = document.getElementById('last').value;
+  const email = document.getElementById('email').value;
+  const birthdate = document.getElementById('birthdate').value;
+  const quantity = document.getElementById('quantity').value;
 
-  // Réinitialiser les messages d'erreur précédents
   document.getElementById('errorFirst').innerHTML = '';
   document.getElementById('errorLast').innerHTML = '';
   document.getElementById('errorEmail').innerHTML = '';
@@ -61,82 +59,71 @@ function validateForm() {
   document.getElementById('errorQuantity').innerHTML = '';
   document.getElementById('errorCheckbox').innerHTML = '';
 
-  // Supprimer les classes d'erreur précédentes
   document.getElementById('first').classList.remove('error-field');
   document.getElementById('last').classList.remove('error-field');
   document.getElementById('email').classList.remove('error-field');
   document.getElementById('birthdate').classList.remove('error-field');
   document.getElementById('quantity').classList.remove('error-field');
 
-  // Variable pour stocker les messages d'erreur
-  var errors = '';
+  let errors = '';
 
-  // Validation du prénom
   if (first.length < 2 || first.trim() === "") {
     document.getElementById('errorFirst').innerHTML = "Le prénom doit contenir au moins 2 caractères.";
     errors += "Le prénom doit contenir au moins 2 caractères.\n";
-    document.getElementById('first').classList.add('error-field'); // Ajoute la classe pour le champ du prénom
+    document.getElementById('first').classList.add('error-field');
   }
 
-  // Validation du nom
   if (last.length < 2 || last.trim() === "") {
     document.getElementById('errorLast').innerHTML = "Le nom doit contenir au moins 2 caractères.";
     errors += "Le nom doit contenir au moins 2 caractères.\n";
-    document.getElementById('last').classList.add('error-field'); // Ajoute la classe pour le champ du nom
+    document.getElementById('last').classList.add('error-field');
   }
 
-  // Validation de l'email
-  var re = /\S+@\S+\.\S+/; // Expression régulière pour valider l'email
+  const re = /\S+@\S+\.\S+/;
 
   if (email.trim() === "") {
     document.getElementById('errorEmail').innerHTML = "Veuillez saisir votre adresse email.";
     errors += "Veuillez saisir votre adresse email.\n";
-    document.getElementById('email').classList.add('error-field'); // Ajoute la classe pour le champ de l'email
+    document.getElementById('email').classList.add('error-field');
   } else if (!re.test(email)) {
     document.getElementById('errorEmail').innerHTML = "Veuillez saisir une adresse email valide.";
     errors += "Veuillez saisir une adresse email valide.\n";
-    document.getElementById('email').classList.add('error-field'); // Ajoute la classe pour le champ de l'email
+    document.getElementById('email').classList.add('error-field');
   }
 
-  // Validation de la date de naissance
   if (birthdate.trim() === "") {
     document.getElementById('errorBirthdate').innerHTML = "Veuillez saisir votre date de naissance.";
     errors += "Veuillez saisir votre date de naissance.\n";
-    document.getElementById('birthdate').classList.add('error-field'); // Ajoute la classe pour le champ de la date de naissance
+    document.getElementById('birthdate').classList.add('error-field');
   }
 
-  // Validation du nombre de tournois
   if (isNaN(quantity) || quantity.trim() === "") {
     document.getElementById('errorQuantity').innerHTML = "Veuillez saisir un nombre pour le nombre de concours.";
     errors += "Veuillez saisir un nombre pour le nombre de concours.\n";
-    document.getElementById('quantity').classList.add('error-field'); // Ajoute la classe pour le champ du nombre de concours
+    document.getElementById('quantity').classList.add('error-field');
   }
 
-  // Validation de la sélection de l'emplacement
-  var location1 = document.getElementById('location1').checked;
-  var location2 = document.getElementById('location2').checked;
-  var location3 = document.getElementById('location3').checked;
-  var location4 = document.getElementById('location4').checked;
-  var location5 = document.getElementById('location5').checked;
-  var location6 = document.getElementById('location6').checked;
+  const location1 = document.getElementById('location1').checked;
+  const location2 = document.getElementById('location2').checked;
+  const location3 = document.getElementById('location3').checked;
+  const location4 = document.getElementById('location4').checked;
+  const location5 = document.getElementById('location5').checked;
+  const location6 = document.getElementById('location6').checked;
 
-  // Validation de l'acceptation des conditions générales
-  var checkbox1 = document.getElementById('checkbox1').checked;
-  var messageElement = document.querySelector("#errorCheckbox");
+  const checkbox1 = document.getElementById('checkbox1').checked;
+  const messageElement = document.querySelector("#errorCheckbox");
 
   if (!checkbox1) {
-    messageElement.innerText = "Veuillez accepter les conditions d'utilisation."; // Affiche un message d'erreur
+    messageElement.innerText = "Veuillez accepter les conditions d'utilisation.";
     errors += "Veuillez accepter les conditions d'utilisation.\n";
   } else {
-    messageElement.innerText = ""; // Efface le message d'erreur s'il était déjà affiché
+    messageElement.innerText = "";
   }
 
-  // Afficher tous les messages d'erreur ensemble
   if (errors !== '') {
     return false;
   }
 
-  // Affichage du message de confirmation uniquement si tout est valide
   alert("Merci ! Votre réservation a été reçue.");
-  return true; // Le formulaire est valide, renvoie true seulement si toutes les validations sont réussies
+  return true;
 }
