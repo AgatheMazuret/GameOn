@@ -46,84 +46,67 @@ function closeModal() {
 }
 
 function validateForm() {
-  const first = document.getElementById('first').value;
-  const last = document.getElementById('last').value;
-  const email = document.getElementById('email').value;
-  const birthdate = document.getElementById('birthdate').value;
-  const quantity = document.getElementById('quantity').value;
-
-  document.getElementById('errorFirst').innerHTML = '';
-  document.getElementById('errorLast').innerHTML = '';
-  document.getElementById('errorEmail').innerHTML = '';
-  document.getElementById('errorBirthdate').innerHTML = '';
-  document.getElementById('errorQuantity').innerHTML = '';
-  document.getElementById('errorCheckbox').innerHTML = '';
-
-  document.getElementById('first').classList.remove('error-field');
-  document.getElementById('last').classList.remove('error-field');
-  document.getElementById('email').classList.remove('error-field');
-  document.getElementById('birthdate').classList.remove('error-field');
-  document.getElementById('quantity').classList.remove('error-field');
-
+  // Liste des champs à vérifier
+  const fields = ['first', 'last', 'email', 'birthdate', 'quantity'];
+  // Variable pour stocker les erreurs
   let errors = '';
 
-  if (first.length < 2 || first.trim() === "") {
-    document.getElementById('errorFirst').innerHTML = "Le prénom doit contenir au moins 2 caractères.";
-    errors += "Le prénom doit contenir au moins 2 caractères.\n";
-    document.getElementById('first').classList.add('error-field');
-  }
+  try {
+    // Vérification de chaque champ
+    fields.forEach(function (field) {
+      const element = document.getElementById(field);
+      const errorElement = document.getElementById('error' + field.charAt(0).toUpperCase() + field.slice(1));
+      errorElement.innerHTML = '';
+      element.classList.remove('error-field');
 
-  if (last.length < 2 || last.trim() === "") {
-    document.getElementById('errorLast').innerHTML = "Le nom doit contenir au moins 2 caractères.";
-    errors += "Le nom doit contenir au moins 2 caractères.\n";
-    document.getElementById('last').classList.add('error-field');
-  }
+      // Vérification du champ email et champs vides
+      if ((field === 'email' && !/\S+@\S+\.\S+/.test(element.value.trim())) || element.value.trim() === "") {
+        // Affichage de message d'erreur
+        errorElement.innerHTML = field === 'email' ? "Veuillez saisir une adresse email valide." : "Veuillez remplir ce champ.";
+        errors += field === 'email' ? "Veuillez saisir une adresse email valide.\n" : "Veuillez remplir ce champ.\n";
+        element.classList.add('error-field');
+      }
+    });
 
-  const re = /\S+@\S+\.\S+/;
+    // Vérification de la sélection d'au moins un emplacement
+    const radios = document.getElementsByName('location');
+    const checkBox = document.getElementById("checkbox1");
+    let isChecked = false;
 
-  if (email.trim() === "") {
-    document.getElementById('errorEmail').innerHTML = "Veuillez saisir votre adresse email.";
-    errors += "Veuillez saisir votre adresse email.\n";
-    document.getElementById('email').classList.add('error-field');
-  } else if (!re.test(email)) {
-    document.getElementById('errorEmail').innerHTML = "Veuillez saisir une adresse email valide.";
-    errors += "Veuillez saisir une adresse email valide.\n";
-    document.getElementById('email').classList.add('error-field');
-  }
+    for (var i = 0; i < radios.length; i++) {
+      if (radios[i].checked) {
+        isChecked = true;
+        break;
+      }
+    }
 
-  if (birthdate.trim() === "") {
-    document.getElementById('errorBirthdate').innerHTML = "Veuillez saisir votre date de naissance.";
-    errors += "Veuillez saisir votre date de naissance.\n";
-    document.getElementById('birthdate').classList.add('error-field');
-  }
+    if (!isChecked && checkBox.checked) {
+      isChecked = true;
+    }
 
-  if (isNaN(quantity) || quantity.trim() === "") {
-    document.getElementById('errorQuantity').innerHTML = "Veuillez saisir un nombre pour le nombre de concours.";
-    errors += "Veuillez saisir un nombre pour le nombre de concours.\n";
-    document.getElementById('quantity').classList.add('error-field');
-  }
+    if (!isChecked) {
+      document.getElementById('errorLocation').innerText = "Veuillez sélectionner une option.";
+      document.getElementById('errorCheckbox').innerText = "Veuillez accepter les conditions d'utilisation.";
+      return false; // Empêche la soumission du formulaire
+    } else {
+      document.getElementById('errorLocation').innerText = ""; // Réinitialise le message d'erreur
+    }
 
-  const location1 = document.getElementById('location1').checked;
-  const location2 = document.getElementById('location2').checked;
-  const location3 = document.getElementById('location3').checked;
-  const location4 = document.getElementById('location4').checked;
-  const location5 = document.getElementById('location5').checked;
-  const location6 = document.getElementById('location6').checked;
+    const checkbox1 = document.getElementById("checkbox1");
 
-  const checkbox1 = document.getElementById('checkbox1').checked;
-  const messageElement = document.querySelector("#errorCheckbox");
 
-  if (!checkbox1) {
-    messageElement.innerText = "Veuillez accepter les conditions d'utilisation.";
-    errors += "Veuillez accepter les conditions d'utilisation.\n";
-  } else {
-    messageElement.innerText = "";
-  }
+    // S'il y a des erreurs, lève une exception
+    if (errors !== '') {
+      throw new Error("Des champs requis ne sont pas remplis correctement.");
+    }
 
-  if (errors !== '') {
+    // Affiche un message de succès si tout est valide
+    alert("Merci ! Votre réservation a été reçue.");
+    return true;
+  } catch (error) {
+    // En cas d'erreur, affiche un message d'erreur dans la console
+    console.error("Une erreur s'est produite lors de la validation du formulaire :", error.message);
     return false;
   }
-
-  alert("Merci ! Votre réservation a été reçue.");
-  return true;
 }
+

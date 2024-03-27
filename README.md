@@ -18,4 +18,4 @@
 
 5. Ajouter la fonction validateForm sur ma modal; 
 6. Ajout d'un message de validation du formulaire;
-7. Mettre un name à checkbox 1 et 2 ;
+7. Mettre un name à checkbox 1 et 2 dans le html ;
