@@ -73,6 +73,7 @@ function validateForm() {
     const checkBox = document.getElementById("checkbox1");
     let isChecked = false;
 
+    // Boucle for,  Vérifie si au moins un des emplacements est sélectionné
     for (var i = 0; i < radios.length; i++) {
       if (radios[i].checked) {
         isChecked = true;
@@ -80,10 +81,12 @@ function validateForm() {
       }
     }
 
+    // Vérifie si la case à cocher est cochée
     if (!isChecked && checkBox.checked) {
       isChecked = true;
     }
 
+    // Affiche les messages d'erreur si aucun emplacement n'est sélectionné
     if (!isChecked) {
       document.getElementById('errorLocation').innerText = "Veuillez sélectionner une option.";
       document.getElementById('errorCheckbox').innerText = "Veuillez accepter les conditions d'utilisation.";
@@ -92,8 +95,8 @@ function validateForm() {
       document.getElementById('errorLocation').innerText = ""; // Réinitialise le message d'erreur
     }
 
+    // Vérification de la case à cocher des conditions d'utilisation
     const checkbox1 = document.getElementById("checkbox1");
-
 
     // S'il y a des erreurs, lève une exception
     if (errors !== '') {
@@ -105,8 +108,9 @@ function validateForm() {
     return true;
   } catch (error) {
     // En cas d'erreur, affiche un message d'erreur dans la console
-    console.error("Une erreur s'est produite lors de la validation du formulaire :", error.message);
+    
     return false;
   }
 }
+
 
