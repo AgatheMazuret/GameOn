@@ -53,15 +53,27 @@ form.addEventListener("submit", (event) => {
       errors.push('Le champ du nom est vide ou contient des caractères non valides');
     }
 
-     // Gestion des erreurs
-     if (errors.length === 0) {
+    const valeurEmail = email.value.trim();
+    if (!valeurEmail) {
+      errors.push('Le champ de l\'email est vide');
+    } else if (!regexEmail.test(valeurEmail)) {
+      errors.push('Le champ de l\'email contient une adresse email invalide');
+    }
+
+    const valeurBirth = birthdate.value.trim();
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(valeurBirth)) {
+      errors.push('Le champ de la date est vide ou contient des caractères non valides');
+    }
+
+    // Gestion des erreurs
+    if (errors.length === 0) {
       console.log('Tous les champs sont remplis et valides');
     } else {
       // Afficher toutes les erreurs
       errors.forEach(error => console.error(error));
     }
-} catch (error) {
+  } catch (error) {
     console.error(error.message);
-}
+  }
 
 });
