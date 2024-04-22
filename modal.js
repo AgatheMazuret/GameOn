@@ -14,17 +14,9 @@ function editNav() {
 }
 
 // DOM Elements
-
-// Sélectionne l'élément HTML représentant le fond du modal
 const modalbg = document.querySelector(".bground");
-
-// Sélectionne tous les boutons qui déclenchent l'ouverture du modal
 const modalBtn = document.querySelectorAll(".modal-btn");
-
-// Sélectionne tous les éléments de formulaire dans le modal
 const formData = document.querySelectorAll(".formData");
-
-// Sélectionne tous les éléments de fermeture de la modal
 const closebtn = document.querySelectorAll(".close");
 
 // Écoute les événements de clic sur chaque bouton modal et lance la fonction launchModal()
@@ -44,3 +36,32 @@ function closeModal() {
   // Change le style de l'élément avec la classe "bground" pour cacher le modal
   modalbg.style.display = "none";
 }
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const errors = []; // Tableau pour stocker les erreurs
+
+  try {
+    const valeurFirst = firstName.value.trim();
+    if (!/^[a-zA-Z]+$/.test(valeurFirst)) {
+      errors.push('Le champ du prénom est vide ou contient des caractères non valides');
+    }
+
+    const valeurLast = lastName.value.trim();
+    if (!/^[a-zA-Z]+$/.test(valeurLast)) {
+      errors.push('Le champ du nom est vide ou contient des caractères non valides');
+    }
+
+     // Gestion des erreurs
+     if (errors.length === 0) {
+      console.log('Tous les champs sont remplis et valides');
+    } else {
+      // Afficher toutes les erreurs
+      errors.forEach(error => console.error(error));
+    }
+} catch (error) {
+    console.error(error.message);
+}
+
+});
