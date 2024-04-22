@@ -65,6 +65,11 @@ form.addEventListener("submit", (event) => {
       errors.push('Le champ de la date est vide ou contient des caractères non valides');
     }
 
+    const valeurQuantity = quantity.value.trim();
+    if (!/^[0-9/]+$/.test(valeurQuantity)) {
+      errors.push('Le champ de la quantité est vide ou contient des caractères non valides');
+    }
+
     // Gestion des erreurs
     if (errors.length === 0) {
       console.log('Tous les champs sont remplis et valides');
