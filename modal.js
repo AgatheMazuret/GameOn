@@ -70,6 +70,20 @@ form.addEventListener("submit", (event) => {
       errors.push('Le champ de la quantité est vide ou contient des caractères non valides');
     }
 
+    // Vérification des boutons radio avec boucle for
+    let isRadioChecked = false; // Variable pour vérifier si au moins un bouton est coché
+
+    for (let i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+            isRadioChecked = true;
+            break; // Sortir de la boucle dès qu'un bouton est coché
+        }
+    }
+
+    if (!isRadioChecked) {
+        errors.push('Aucun lieu sélectionné');
+    }
+
     // Gestion des erreurs
     if (errors.length === 0) {
       console.log('Tous les champs sont remplis et valides');
