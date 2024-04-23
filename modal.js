@@ -18,6 +18,17 @@ const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const closebtn = document.querySelectorAll(".close");
+const form = document.querySelector('form');
+const firstName = document.getElementById("first");
+const lastName = document.getElementById("last");
+const email = document.getElementById('email');
+const regexEmail = /^[a-z0-9._-]+@[a-z0-9._-]+\.[a-z0-9._-]+$/;
+const birthdate = document.getElementById('birthdate');
+const quantity = document.getElementById('quantity');
+const radios = document.querySelectorAll('input[type="radio"][name="location"]')
+let isRadioCheked = false;
+const checkbox1 = document.getElementById('checkbox1');
+const checkbox2 = document.getElementById('checkbox2');
 
 // Écoute les événements de clic sur chaque bouton modal et lance la fonction launchModal()
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -83,6 +94,8 @@ form.addEventListener("submit", (event) => {
     if (!isRadioChecked) {
         errors.push('Aucun lieu sélectionné');
     }
+
+  
 
     // Gestion des erreurs
     if (errors.length === 0) {
