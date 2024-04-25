@@ -39,12 +39,15 @@
           aux réservations... Places limitées !
         </p>
         <button class="btn-signup modal-btn" onclick="launchModal()">
-  je m'inscris
-</button>
+          je m'inscris
+        </button>
       </div>
       <div class="hero-img">
-        <img src="./images/bg_img.jpg" alt="Femme de dos avec une manette dans la main" />
+        <img src="./images/bg_img.jpg" alt="Personne de dos avec une manette dans la main" />
       </div>
+      <button class="btn-signup mobile-btn" onclick="launchModal()">
+        je m'inscris
+      </button>
     </div>
 
     <div class="bground">
@@ -53,35 +56,37 @@
         <div class="modal-body">
           <form id="myForm" action="index.html" method="get" novalidate onsubmit="return validateForm();">
             <div class="formData">
-                <label for="first">Prénom</label><br>
-                <input class="text-control" type="text" id="first" name="first" minlength="2" autocomplete="given-name" /><br>
-                <span id="errorFirst" class="error"></span>
+              <label for="first">Prénom</label><br>
+              <input class="text-control" type="text" id="first" name="first" minlength="2"
+                autocomplete="given-name" /><br>
+              <span id="errorFirst" class="error"></span>
             </div>
-        
+
             <div class="formData">
-                <label for="last">Nom</label><br>
-                <input class="text-control" type="text" id="last" name="last" autocomplete="family-name" /><br>
-                <span id="errorLast" class="error"></span>
+              <label for="last">Nom</label><br>
+              <input class="text-control" type="text" id="last" name="last" autocomplete="family-name" /><br>
+              <span id="errorLast" class="error"></span>
             </div>
-        
+
             <div class="formData">
-                <label for="email">E-mail</label><br>
-                <input class="text-control" type="email" id="email" name="email"  autocomplete="email" /><br>
-                <span id="errorEmail" class="error"></span>
+              <label for="email">E-mail</label><br>
+              <input class="text-control" type="email" id="email" name="email" autocomplete="email" /><br>
+              <span id="errorEmail" class="error"></span>
             </div>
-        
+
             <div class="formData">
-                <label for="birthdate">Date de naissance</label><br>
-                <input class="text-control" type="date" id="birthdate" name="birthdate" autocomplete="bday" /><br>
-                <span id="errorBirthdate" class="error"></span>
+              <label for="birthdate">Date de naissance</label><br>
+              <input class="text-control" type="date" id="birthdate" name="birthdate" autocomplete="bday" /><br>
+              <span id="errorBirthdate" class="error"></span>
             </div>
-        
+
             <div class="formData">
-                <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
-                <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99" autocomplete="off">
-                <span id="errorQuantity" class="error"></span>
+              <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
+              <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99"
+                autocomplete="off">
+              <span id="errorQuantity" class="error"></span>
             </div>
-        
+
 
             <div class="formData">
               <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
@@ -109,8 +114,8 @@
               <label class="checkbox-label" for="location6">
                 <span class="checkbox-icon"></span>
                 Portland</label>
-                <br>
-                <span id="errorLocation" class="error"></span>
+              <br>
+              <span id="errorLocation" class="error"></span>
             </div>
 
             <div class="formData">
@@ -130,7 +135,7 @@
             </div>
             <input class="btn-submit" type="submit" class="button" id="envoyer" value="Envoyer" />
           </form>
-
+          <!-- 
          <div class="thanks">
          <div class="thanksMessage" >
           <h2 >Merci pour <br> votre inscription</h2>
@@ -138,11 +143,12 @@
           <div class="closebtn">
           <input id="closebtn" class="btn-submit" type="button" value="Fermer">
         </div>
-      
-         </div>
+           -->
 
         </div>
+
       </div>
+    </div>
     </div>
   </main>
   <footer>

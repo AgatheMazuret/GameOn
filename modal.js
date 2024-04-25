@@ -25,8 +25,7 @@ const email = document.getElementById('email');
 const regexEmail = /^[a-z0-9._-]+@[a-z0-9._-]+\.[a-z0-9._-]+$/;
 const birthdate = document.getElementById('birthdate');
 const quantity = document.getElementById('quantity');
-const radios = document.querySelectorAll('input[type="radio"][name="location"]')
-let isRadioCheked = false;
+const radios = document.querySelectorAll('input[type="radio"][name="location"]');
 const checkbox1 = document.getElementById('checkbox1');
 const checkbox2 = document.getElementById('checkbox2');
 
@@ -54,16 +53,21 @@ form.addEventListener("submit", (event) => {
   const errors = []; // Tableau pour stocker les erreurs
 
   try {
+    // Vérification du champ du prénom
+    
     const valeurFirst = firstName.value.trim();
-    if (!/^[a-zA-Z]+$/.test(valeurFirst)) {
+    if (!/^[a-zA-Z]{2,}$/.test(valeurFirst)) {
       errors.push('Le champ du prénom est vide ou contient des caractères non valides');
+      errorElement.innerHTML = 'Le champ du prénom est vide ou contient des caractères non valides';
     }
 
+    // Vérification du champ du nom
     const valeurLast = lastName.value.trim();
-    if (!/^[a-zA-Z]+$/.test(valeurLast)) {
+    if (!/^[a-zA-Z]{2,}$/.test(valeurLast)) {
       errors.push('Le champ du nom est vide ou contient des caractères non valides');
     }
 
+    // Vérification du champ de l'email
     const valeurEmail = email.value.trim();
     if (!valeurEmail) {
       errors.push('Le champ de l\'email est vide');
@@ -71,11 +75,13 @@ form.addEventListener("submit", (event) => {
       errors.push('Le champ de l\'email contient une adresse email invalide');
     }
 
+    // Vérification du champ de la date de naissance
     const valeurBirth = birthdate.value.trim();
     if (!/^\d{4}-\d{2}-\d{2}$/.test(valeurBirth)) {
       errors.push('Le champ de la date est vide ou contient des caractères non valides');
     }
 
+    // Vérification du champ de la quantité
     const valeurQuantity = quantity.value.trim();
     if (!/^[0-9/]+$/.test(valeurQuantity)) {
       errors.push('Le champ de la quantité est vide ou contient des caractères non valides');
@@ -85,17 +91,29 @@ form.addEventListener("submit", (event) => {
     let isRadioChecked = false; // Variable pour vérifier si au moins un bouton est coché
 
     for (let i = 0; i < radios.length; i++) {
-        if (radios[i].checked) {
-            isRadioChecked = true;
-            break; // Sortir de la boucle dès qu'un bouton est coché
-        }
+      if (radios[i].checked) {
+        isRadioChecked = true;
+        break; // Sortir de la boucle dès qu'un bouton est coché
+      }
     }
 
     if (!isRadioChecked) {
-        errors.push('Aucun lieu sélectionné');
+      errors.push('Aucun lieu sélectionné');
     }
 
-  
+    // Vérification de la case à cocher pour les conditions d'utilisation
+    const check1Checked = document.getElementById("checkbox1").checked;
+
+    if (!check1Checked) {
+      errors.push("Les conditions d'utilisation n'ont pas été acceptés ");
+    }
+
+    // Vérification de la case à cocher pour la demande de notification des évènements
+    const check2checked = document.getElementById("checkbox2").checked;
+
+    if (!check2checked) {
+      errors.push("L'utilisateur ne souhaite pas être prévenu des prochains évènements");
+    }
 
     // Gestion des erreurs
     if (errors.length === 0) {

@@ -231,14 +231,6 @@ input[data-error]::after {
     font-size: 0.4em;
     color: red;
 } */
-.error-field {
-  border: 2px solid red; /* Ajoute un contour rouge */
-}
-
-.error {
-  color: red;
-  font-size: 12px;
-}
 
 .checkbox-label,
 .checkbox2-label {
@@ -343,18 +335,6 @@ input[data-error]::after {
   margin-top: 1.5rem;
 }
 
-.thanks {
-  display: none;
-  justify-content: center;
-  text-align: center;
-  height: 720px;
-}
-.thanksMessage {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  padding-top: 255px;
-}
 .closebtn {
   display: flex;
   justify-content: flex-end;
