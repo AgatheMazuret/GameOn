@@ -47,45 +47,125 @@ function closeModal() {
   modalbg.style.display = "none";
 }
 
+
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 
   const errors = []; // Tableau pour stocker les erreurs
 
   try {
-    // Vérification du champ du prénom
     
+    // Vérification du champ du prénom
+
     const valeurFirst = firstName.value.trim();
     if (!/^[a-zA-Z]{2,}$/.test(valeurFirst)) {
-      errors.push('Le champ du prénom est vide ou contient des caractères non valides');
-      errorElement.innerHTML = 'Le champ du prénom est vide ou contient des caractères non valides';
+      if (!document.getElementById('first-error')) {
+        const errorDiv = document.createElement('div');
+        errorDiv.id = 'first-error'; // Ajoutez un ID unique à la div d'erreur
+        errorDiv.classList.add('error'); // Ajoutez une classe pour cibler les divs d'erreur
+        const errorMessage = document.createTextNode('Le champ du prénom est vide ou contient des caractères non valides');
+        errorDiv.appendChild(errorMessage);
+        firstName.insertAdjacentElement('afterend', errorDiv);
+        errors.push('Le champ du prénom est vide ou contient des caractères non valides');
+      }
+    }else {
+      // Supprimer le message d'erreur si le champ est valide
+      const errorDiv = document.getElementById('first-error');
+      if (errorDiv) {
+        errorDiv.remove();
+      }
     }
 
     // Vérification du champ du nom
-    const valeurLast = lastName.value.trim();
-    if (!/^[a-zA-Z]{2,}$/.test(valeurLast)) {
-      errors.push('Le champ du nom est vide ou contient des caractères non valides');
-    }
+const valeurLast = lastName.value.trim();
+if (!/^[a-zA-Z]{2,}$/.test(valeurLast)) {
+  if (!document.getElementById('last-error')) {
+    const errorDiv = document.createElement('div');
+    errorDiv.id = 'last-error'; // Ajoutez un ID unique à la div d'erreur
+    errorDiv.classList.add('error'); // Ajoutez une classe pour cibler les divs d'erreur
+    const errorMessage = document.createTextNode('Le champ du nom est vide ou contient des caractères non valides');
+    errorDiv.appendChild(errorMessage);
+    lastName.insertAdjacentElement('afterend', errorDiv);
+    errors.push('Le champ du nom est vide ou contient des caractères non valides');
+  }
+} else {
+  // Supprimer le message d'erreur si le champ est valide
+  const errorDiv = document.getElementById('last-error');
+  if (errorDiv) {
+    errorDiv.remove();
+  }
+}
 
-    // Vérification du champ de l'email
-    const valeurEmail = email.value.trim();
-    if (!valeurEmail) {
-      errors.push('Le champ de l\'email est vide');
-    } else if (!regexEmail.test(valeurEmail)) {
-      errors.push('Le champ de l\'email contient une adresse email invalide');
-    }
+ // Vérification du champ de l'email
+const valeurEmail = email.value.trim();
+if (!valeurEmail) {
+  if (!document.getElementById('email-error')) {
+    const errorDiv = document.createElement('div');
+    errorDiv.id = 'email-error'; // Ajoutez un ID unique à la div d'erreur
+    errorDiv.classList.add('error'); // Ajoutez une classe pour cibler les divs d'erreur
+    const errorMessage = document.createTextNode('Le champ de l\'email est vide');
+    errorDiv.appendChild(errorMessage);
+    email.insertAdjacentElement('afterend', errorDiv);
+    errors.push('Le champ de l\'email est vide');
+  }
+} else if (!regexEmail.test(valeurEmail)) {
+  if (!document.getElementById('email-error')) {
+    const errorDiv = document.createElement('div');
+    errorDiv.id = 'email-error'; // Ajoutez un ID unique à la div d'erreur
+    errorDiv.classList.add('error'); // Ajoutez une classe pour cibler les divs d'erreur
+    const errorMessage = document.createTextNode('Le champ de l\'email contient une adresse email invalide');
+    errorDiv.appendChild(errorMessage);
+    email.insertAdjacentElement('afterend', errorDiv);
+    errors.push('Le champ de l\'email contient une adresse email invalide');
+  }
+} else {
+  // Supprimer le message d'erreur si le champ est valide
+  const errorDiv = document.getElementById('email-error');
+  if (errorDiv) {
+    errorDiv.remove();
+  }
+}
+
 
     // Vérification du champ de la date de naissance
-    const valeurBirth = birthdate.value.trim();
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(valeurBirth)) {
-      errors.push('Le champ de la date est vide ou contient des caractères non valides');
-    }
+const valeurBirth = birthdate.value.trim();
+if (!/^\d{4}-\d{2}-\d{2}$/.test(valeurBirth)) {
+  if (!document.getElementById('birthdate-error')) {
+    const errorDiv = document.createElement('div');
+    errorDiv.id = 'birthdate-error'; // Ajoutez un ID unique à la div d'erreur
+    errorDiv.classList.add('error'); // Ajoutez une classe pour cibler les divs d'erreur
+    const errorMessage = document.createTextNode('Le champ de la date est vide ou contient des caractères non valides');
+    errorDiv.appendChild(errorMessage);
+    birthdate.insertAdjacentElement('afterend', errorDiv);
+    errors.push('Le champ de la date est vide ou contient des caractères non valides');
+  }
+} else {
+  // Supprimer le message d'erreur si le champ est valide
+  const errorDiv = document.getElementById('birthdate-error');
+  if (errorDiv) {
+    errorDiv.remove();
+  }
+}
 
     // Vérification du champ de la quantité
-    const valeurQuantity = quantity.value.trim();
-    if (!/^[0-9/]+$/.test(valeurQuantity)) {
-      errors.push('Le champ de la quantité est vide ou contient des caractères non valides');
-    }
+const valeurQuantity = quantity.value.trim();
+if (!/^[0-9/]+$/.test(valeurQuantity)) {
+  if (!document.getElementById('quantity-error')) {
+    const errorDiv = document.createElement('div');
+    errorDiv.id = 'quantity-error'; // Ajoutez un ID unique à la div d'erreur
+    errorDiv.classList.add('error'); // Ajoutez une classe pour cibler les divs d'erreur
+    const errorMessage = document.createTextNode('Le champ de la quantité est vide ou contient des caractères non valides');
+    errorDiv.appendChild(errorMessage);
+    quantity.insertAdjacentElement('afterend', errorDiv);
+    errors.push('Le champ de la quantité est vide ou contient des caractères non valides');
+  }
+} else {
+  // Supprimer le message d'erreur si le champ est valide
+  const errorDiv = document.getElementById('quantity-error');
+  if (errorDiv) {
+    errorDiv.remove();
+  }
+}
 
     // Vérification des boutons radio avec boucle for
     let isRadioChecked = false; // Variable pour vérifier si au moins un bouton est coché
