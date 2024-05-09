@@ -28,7 +28,7 @@ const quantity = document.getElementById('quantity');
 const radios = document.querySelectorAll('input[type="radio"][name="location"]');
 const checkbox1 = document.getElementById('checkbox1');
 const checkbox2 = document.getElementById('checkbox2');
-const errorMessageElement = document.getElementById('error-message');
+
 
 // Écoute les événements de clic sur chaque bouton modal et lance la fonction launchModal()
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -54,136 +54,91 @@ form.addEventListener("submit", (event) => {
 
   const errors = []; // Tableau pour stocker les erreurs
 
+  // Fonction pour ajouter un message d'erreur à un élément parent
+  function addError(parentElement, errorMessage) {
+    // Définir l'attribut "data-error-visible" sur true pour rendre l'erreur visible
+    parentElement.setAttribute("data-error-visible", "true");
+    // Définir l'attribut "data-error" avec le message d'erreur spécifié
+    parentElement.setAttribute("data-error", errorMessage);
+    // Ajouter l'erreur au tableau des erreurs
+    errors.push(errorMessage);
+  }
+
+  // Fonction pour supprimer un message d'erreur d'un élément parent
+  function removeError(parentElement) {
+    // Vérifier si l'élément parent existe et s'il a l'attribut "data-error-visible" défini sur true
+    if (
+      parentElement &&
+      parentElement.getAttribute("data-error-visible") === "true"
+    ) {
+      // Supprimer l'attribut "data-error-visible" pour masquer l'erreur
+      parentElement.removeAttribute("data-error-visible");
+    }
+  }
   try {
 
     // Vérification du champ du prénom
     const valeurFirst = firstName.value.trim();
     if (!/^[a-zA-Z]{2,}$/.test(valeurFirst)) {
-      const errorValue = 'Le champ du prénom est vide ou contient des caractères non valides';
       const parentElement = firstName.parentNode;
-      // Ajouter data-error sur l'élément parent
-      parentElement.dataset.error = errorValue;
-      // Afficher le message d'erreur
-      document.getElementById('error-message').innerHTML = errorValue;
-      // Ajouter le message d'erreur à la liste des erreurs
-      errors.push(errorValue);
-  } else {
+      const errorMessage = 'Le champ du prénom est vide ou contient des caractères non valides';
+      addError(parentElement, errorMessage);
+    } else {
       // Supprimer le data-error si le champ est valide
-      delete parentElement.dataset.error;
-  }
-
-
-    //   if (!document.getElementById('first-error')) {
-    //     const errorDiv = document.createElement('div');
-    //     errorDiv.id = 'first-error'; // Ajoutez un ID unique à la div d'erreur
-    //     errorDiv.classList.add('error'); // Ajoutez une classe pour cibler les divs d'erreur
-    //     const errorMessage = document.createTextNode('Le champ du prénom est vide ou contient des caractères non valides');
-    //     errorDiv.appendChild(errorMessage);
-    //     firstName.insertAdjacentElement('afterend', errorDiv);
-    //     errors.push('Le champ du prénom est vide ou contient des caractères non valides');
-    //   }
-    // } else {
-    //   // Supprimer le message d'erreur si le champ est valide
-    //   const errorDiv = document.getElementById('first-error');
-    //   if (errorDiv) {
-    //     errorDiv.remove();
-    //   }
-    // } 
+      removeError(firstName.parentNode);
+    }
 
     // Vérification du champ du nom
     const valeurLast = lastName.value.trim();
     if (!/^[a-zA-Z]{2,}$/.test(valeurLast)) {
-      if (!document.getElementById('last-error')) {
-        const errorDiv = document.createElement('div');
-        errorDiv.id = 'last-error'; // Ajoutez un ID unique à la div d'erreur
-        errorDiv.classList.add('error'); // Ajoutez une classe pour cibler les divs d'erreur
-        const errorMessage = document.createTextNode('Le champ du nom est vide ou contient des caractères non valides');
-        errorDiv.appendChild(errorMessage);
-        lastName.insertAdjacentElement('afterend', errorDiv);
-        errors.push('Le champ du nom est vide ou contient des caractères non valides');
-      }
+      const parentElement = lastName.parentNode;
+      const errorMessage = 'Le champ du nom est vide ou contient des caractères non valides';
+      addError(parentElement, errorMessage);
     } else {
-      // Supprimer le message d'erreur si le champ est valide
-      const errorDiv = document.getElementById('last-error');
-      if (errorDiv) {
-        errorDiv.remove();
-      }
+      // Supprimer le data-error si le champ est valide
+      removeError(lastName.parentNode);
     }
 
     // Vérification du champ de l'email
     const valeurEmail = email.value.trim();
+    const parentElement = email.parentNode;
+
     if (!valeurEmail) {
-      if (!document.getElementById('email-error')) {
-        const errorDiv = document.createElement('div');
-        errorDiv.id = 'email-error'; // Ajoutez un ID unique à la div d'erreur
-        errorDiv.classList.add('error'); // Ajoutez une classe pour cibler les divs d'erreur
-        const errorMessage = document.createTextNode('Le champ de l\'email est vide');
-        errorDiv.appendChild(errorMessage);
-        email.insertAdjacentElement('afterend', errorDiv);
-        errors.push('Le champ de l\'email est vide');
-      }
+      const errorMessage = 'Le champ de l\'email est vide';
+      addError(parentElement, errorMessage);
     } else if (!regexEmail.test(valeurEmail)) {
-      if (!document.getElementById('email-error')) {
-        const errorDiv = document.createElement('div');
-        errorDiv.id = 'email-error'; // Ajoutez un ID unique à la div d'erreur
-        errorDiv.classList.add('error'); // Ajoutez une classe pour cibler les divs d'erreur
-        const errorMessage = document.createTextNode('Le champ de l\'email contient une adresse email invalide');
-        errorDiv.appendChild(errorMessage);
-        email.insertAdjacentElement('afterend', errorDiv);
-        errors.push('Le champ de l\'email contient une adresse email invalide');
-      }
+      const errorMessage = 'Le champ de l\'email contient une adresse invalide';
+      addError(parentElement, errorMessage);
     } else {
-      // Supprimer le message d'erreur si le champ est valide
-      const errorDiv = document.getElementById('email-error');
-      if (errorDiv) {
-        errorDiv.remove();
-      }
+      // Supprimer le data-error si le champ est valide 
+      removeError(parentElement);
     }
 
 
     // Vérification du champ de la date de naissance
     const valeurBirth = birthdate.value.trim();
     if (!/^\d{4}-\d{2}-\d{2}$/.test(valeurBirth)) {
-      if (!document.getElementById('birthdate-error')) {
-        const errorDiv = document.createElement('div');
-        errorDiv.id = 'birthdate-error'; // Ajoutez un ID unique à la div d'erreur
-        errorDiv.classList.add('error'); // Ajoutez une classe pour cibler les divs d'erreur
-        const errorMessage = document.createTextNode('Le champ de la date est vide ou contient des caractères non valides');
-        errorDiv.appendChild(errorMessage);
-        birthdate.insertAdjacentElement('afterend', errorDiv);
-        errors.push('Le champ de la date est vide ou contient des caractères non valides');
-      }
+      const parentElement = birthdate.parentNode;
+      const errorMessage = 'Le champ de la date de naissance est vide ou contient une date invalide';
+      addError(parentElement, errorMessage);
     } else {
-      // Supprimer le message d'erreur si le champ est valide
-      const errorDiv = document.getElementById('birthdate-error');
-      if (errorDiv) {
-        errorDiv.remove();
-      }
+      // Supprimer le data-error si le champ est valide
+      removeError(birthdate.parentNode);
     }
 
     // Vérification du champ de la quantité
     const valeurQuantity = quantity.value.trim();
     if (!/^[0-9/]+$/.test(valeurQuantity)) {
-      if (!document.getElementById('quantity-error')) {
-        const errorDiv = document.createElement('div');
-        errorDiv.id = 'quantity-error'; // Ajoutez un ID unique à la div d'erreur
-        errorDiv.classList.add('error'); // Ajoutez une classe pour cibler les divs d'erreur
-        const errorMessage = document.createTextNode('Le champ de la quantité est vide ou contient des caractères non valides');
-        errorDiv.appendChild(errorMessage);
-        quantity.insertAdjacentElement('afterend', errorDiv);
-        errors.push('Le champ de la quantité est vide ou contient des caractères non valides');
-      }
+      const parentElement = quantity.parentNode;
+      const errorMessage = 'Le champ de la quantité est vide ou contient des caractères non valides';
+      addError(parentElement, errorMessage);
     } else {
-      // Supprimer le message d'erreur si le champ est valide
-      const errorDiv = document.getElementById('quantity-error');
-      if (errorDiv) {
-        errorDiv.remove();
-      }
+      // Supprimer le data-error si le champ est valide
+      removeError(quantity.parentNode);
     }
 
     // Vérification des boutons radio avec boucle for
     let isRadioChecked = false; // Variable pour vérifier si au moins un bouton est coché
-
     for (let i = 0; i < radios.length; i++) {
       if (radios[i].checked) {
         isRadioChecked = true;
@@ -192,22 +147,12 @@ form.addEventListener("submit", (event) => {
     }
 
     if (!isRadioChecked) {
-      if (!document.getElementById('radio-error')) {
-        const errorDiv = document.createElement('div');
-        errorDiv.id = 'radio-error'; // Ajoutez un ID unique à la div d'erreur
-        errorDiv.classList.add('error'); // Ajoutez une classe pour cibler les divs d'erreur
-        const errorMessage = document.createTextNode('Aucun lieu sélectionné');
-        errorDiv.appendChild(errorMessage);
-        // Insérer la div d'erreur dans le DOM, par exemple après le dernier bouton radio
-        radios[radios.length - 1].insertAdjacentElement('afterend', errorDiv);
-        errors.push('Aucun lieu sélectionné');
-      }
+      const parentElement = radios[0].parentNode;
+      const errorMessage = 'Aucune ville n\'a été sélectionnée';
+      addError(parentElement, errorMessage);
     } else {
-      // Supprimer le message d'erreur si le champ est valide
-      const errorDiv = document.getElementById('radio-error');
-      if (errorDiv) {
-        errorDiv.remove();
-      }
+      // Supprimer le data-error si le champ est valide
+      removeError(parentElement);
     }
 
 
@@ -215,7 +160,12 @@ form.addEventListener("submit", (event) => {
     const check1Checked = document.getElementById("checkbox1").checked;
 
     if (!check1Checked) {
-      errors.push("Les conditions d'utilisation n'ont pas été acceptés ");
+      const parentElement = checkbox1.parentNode;
+      const errorMessage = 'Les conditions d\'utilisation n\'ont pas été acceptées';
+      addError(parentElement, errorMessage);
+    } else {
+      // Supprimer le data-error si le champ est valide
+      removeError(parentElement);
     }
 
     // Vérification de la case à cocher pour la demande de notification des évènements
