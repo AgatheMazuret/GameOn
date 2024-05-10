@@ -145,27 +145,26 @@ form.addEventListener("submit", (event) => {
         break; // Sortir de la boucle dès qu'un bouton est coché
       }
     }
-
+    const parentElementRadio = radios[0].parentNode;
     if (!isRadioChecked) {
-      const parentElement = radios[0].parentNode;
       const errorMessage = 'Aucune ville n\'a été sélectionnée';
-      addError(parentElement, errorMessage);
+      addError(parentElementRadio, errorMessage);
     } else {
       // Supprimer le data-error si le champ est valide
-      removeError(parentElement);
+      removeError(parentElementRadio);
     }
 
 
     // Vérification de la case à cocher pour les conditions d'utilisation
     const check1Checked = document.getElementById("checkbox1").checked;
-
+    const parentElementCheckbox1 = checkbox1.parentNode;
     if (!check1Checked) {
-      const parentElement = checkbox1.parentNode;
+
       const errorMessage = 'Les conditions d\'utilisation n\'ont pas été acceptées';
-      addError(parentElement, errorMessage);
+      addError(parentElementCheckbox1, errorMessage);
     } else {
       // Supprimer le data-error si le champ est valide
-      removeError(parentElement);
+      removeError(parentElementCheckbox1);
     }
 
     // Vérification de la case à cocher pour la demande de notification des évènements
