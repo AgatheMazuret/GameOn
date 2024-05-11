@@ -48,16 +48,13 @@ function closeModal() {
   modalbg.style.display = "none";
 }
 
-
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
+function validateForm() {
 
   const errors = []; // Tableau pour stocker les erreurs
 
   // Fonction pour ajouter un message d'erreur à un élément parent
   function addError(parentElement, errorMessage) {
-    // Définir l'attribut "data-error-visible" sur true pour rendre l'erreur visible
-    parentElement.setAttribute("data-error-visible", "true");
+
     // Définir l'attribut "data-error" avec le message d'erreur spécifié
     parentElement.setAttribute("data-error", errorMessage);
     // Ajouter l'erreur au tableau des erreurs
@@ -66,13 +63,13 @@ form.addEventListener("submit", (event) => {
 
   // Fonction pour supprimer un message d'erreur d'un élément parent
   function removeError(parentElement) {
-    // Vérifier si l'élément parent existe et s'il a l'attribut "data-error-visible" défini sur true
+    // Vérifier si l'élément parent existe et s'il a l'attribut "data-error"
     if (
       parentElement &&
-      parentElement.getAttribute("data-error-visible") === "true"
+      parentElement.getAttribute("data-error")
     ) {
-      // Supprimer l'attribut "data-error-visible" pour masquer l'erreur
-      parentElement.removeAttribute("data-error-visible");
+      // Supprimer l'attribut "data-error" pour masquer l'erreur
+      parentElement.removeAttribute("data-error");
     }
   }
   try {
@@ -174,9 +171,20 @@ form.addEventListener("submit", (event) => {
       errors.push("L'utilisateur ne souhaite pas être prévenu des prochains évènements");
     }
 
+   // Affichage des données dans la console
+   console.log("Prénom:", valeurFirst);
+   console.log("Nom:", valeurLast);
+   console.log("Email:", valeurEmail);
+   console.log("Date de naissance:", valeurBirth);
+   console.log("Quantité:", valeurQuantity);
+   console.log("Ville sélectionnée:", isRadioChecked);
+   console.log("Accepte les conditions d'utilisation:", check1Checked);
+   console.log("Demande de notification des évènements:", check2checked);
+
     // Gestion des erreurs
     if (errors.length === 0) {
-      console.log('Tous les champs sont remplis et valides');
+      // Si oui, on affiche la div thanks
+      openThanks ();
     } else {
       // Afficher toutes les erreurs
       errors.forEach(error => console.error(error));
@@ -185,4 +193,49 @@ form.addEventListener("submit", (event) => {
     console.error(error.message);
   }
 
+};
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault(); 
+  
+})
+
+// Créer une page de validation avec la div thanks qui s'affiche si tous les champs sont valides
+
+// Création de la div "thanks"
+const thanksDiv = document.createElement('div');
+thanksDiv.classList.add('thanks');
+
+// Création de la div "thanksMessage"
+const thanksMessageDiv = document.createElement('div');
+thanksMessageDiv.classList.add('thanksMessage');
+thanksMessageDiv.textContent = "Merci pour votre inscription!";
+
+// Création du bouton "closeBtn"
+const closeBtn = document.createElement('button');
+closeBtn.classList.add('closeBtn');
+closeBtn.textContent = "Fermer";
+
+// Ajout du bouton à la div "thanks"
+thanksDiv.appendChild(thanksMessageDiv);
+
+// Ajout de la div "thanksMessage" à la div "thanks"
+thanksDiv.appendChild(closeBtn);
+
+// Insertion de la div "thanks" après le formulaire
+form.insertAdjacentElement('afterend', thanksDiv);
+// On cache la div thanks
+// thanksDiv.style.display = "none";
+// Quand on clique sur le bouton submit, on vérifie si tous les champs sont valides
+function openThanks() {
+  // Hide the form and show the confirmation message
+  form.style.display = "none";
+  thanksDiv.style.display = "block";
+}
+
+// Si oui, on affiche la div thanks voir à la fin dans gestion des erreurs
+// Si non, on affiche les erreurs voir à la fin dans gestion des erreurs
+// On peut quitter la modal en cliquant sur le bouton close ou en cliquant en dehors de la modal
+closeBtn.addEventListener('click', () => {
+  thanksDiv.style.display = "none";
 });

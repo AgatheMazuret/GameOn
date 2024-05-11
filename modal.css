@@ -138,7 +138,7 @@ main {
 
 /* Modal form */
 
-.button {
+button {
   background: #fe142f;
   margin-top: 0.5em;
   padding: 1em;
@@ -214,15 +214,12 @@ input {
   display: block;
   margin-top: 7px;
   margin-bottom: 7px;
-  text-align: right;
+  text-align: left;
   line-height: 0.3;
-  opacity: 0;
   transition: 0.3s;
 }
-.formData[data-error-visible="true"]::after {
-  opacity: 1;
-}
-.formData[data-error-visible="true"] .text-control {
+
+.formData[data-error] .text-control {
   border: 2px solid #e54858;
 }
 /* 
@@ -335,11 +332,34 @@ input[data-error]::after {
   margin-top: 1.5rem;
 }
 
-.closebtn {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 320px;
+.closeBtn {
+  width: 182px;
+  border: none;
 }
+
+.thanks {
+  display: flex;
+  height: 850px;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  font-size: 36px;
+  color: #fff;
+  background: #232323;
+  border-radius: 10px;
+  margin: 20px;
+}
+
+.thanksMessage {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+
 /* custom select styles */
 .custom-select {
   position: relative;
