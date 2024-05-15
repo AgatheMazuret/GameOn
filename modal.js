@@ -83,6 +83,8 @@ function validateForm() {
     } else {
       // Supprimer le data-error si le champ est valide
       removeError(firstName.parentNode);
+      // Stocker la valeur dans l'objet formData
+      formData.firstName = valeurFirst;
     }
 
     // Vérification du champ du nom
@@ -94,6 +96,7 @@ function validateForm() {
     } else {
       // Supprimer le data-error si le champ est valide
       removeError(lastName.parentNode);
+      formData.lastName = valeurLast;
     }
 
     // Vérification du champ de l'email
@@ -109,6 +112,7 @@ function validateForm() {
     } else {
       // Supprimer le data-error si le champ est valide 
       removeError(parentElement);
+      formData.email = valeurEmail;
     }
 
 
@@ -121,6 +125,7 @@ function validateForm() {
     } else {
       // Supprimer le data-error si le champ est valide
       removeError(birthdate.parentNode);
+      formData.birthdate = valeurBirth;
     }
 
     // Vérification du champ de la quantité
@@ -132,6 +137,7 @@ function validateForm() {
     } else {
       // Supprimer le data-error si le champ est valide
       removeError(quantity.parentNode);
+      formData.quantity = valeurQuantity;
     }
 
     // Vérification des boutons radio avec boucle for
@@ -149,6 +155,7 @@ function validateForm() {
     } else {
       // Supprimer le data-error si le champ est valide
       removeError(parentElementRadio);
+      formData.location = document.querySelector('input[type="radio"][name="location"]:checked').value;
     }
 
 
@@ -162,29 +169,18 @@ function validateForm() {
     } else {
       // Supprimer le data-error si le champ est valide
       removeError(parentElementCheckbox1);
+      formData.checkbox1 = check1Checked;
     }
 
     // Vérification de la case à cocher pour la demande de notification des évènements
     const check2checked = document.getElementById("checkbox2").checked;
+    formData.checkbox2 = check2checked;
 
-    if (!check2checked) {
-      errors.push("L'utilisateur ne souhaite pas être prévenu des prochains évènements");
-    }
-
-   // Affichage des données dans la console
-   console.log("Prénom:", valeurFirst);
-   console.log("Nom:", valeurLast);
-   console.log("Email:", valeurEmail);
-   console.log("Date de naissance:", valeurBirth);
-   console.log("Quantité:", valeurQuantity);
-   console.log("Ville sélectionnée:", isRadioChecked);
-   console.log("Accepte les conditions d'utilisation:", check1Checked);
-   console.log("Demande de notification des évènements:", check2checked);
-
+    
     // Gestion des erreurs
     if (errors.length === 0) {
-      // Si pas d'erreurs, on affiche la div thanks
-      openThanks();
+      // Afficher un message de succès
+      console.log('Le formulaire est valide');
     } else {
       // Afficher toutes les erreurs
       errors.forEach(error => console.error(error));
@@ -192,11 +188,17 @@ function validateForm() {
   } catch (error) {
     console.error(error.message);
   }
-
+return errors;
 };
 // ----------------------------------------------------------------------------------------------------------------------------
 form.addEventListener("submit", (event) => {
   event.preventDefault(); // Empêcher le formulaire de s'envoyer
+  const errors = validateForm();
+    // Affichage des données dans la console
+    console.log("Données du formulaire:", formData);
+  if (errors.length === 0) {
+    openThanks();
+  }
 })
 // ----------------------------------------------------------------------------------------------------------------------------
 // Créer une page de validation avec la div thanks qui s'affiche si tous les champs sont valides
@@ -215,15 +217,19 @@ const closeBtn = document.createElement('button');
 closeBtn.classList.add('closeBtn');
 closeBtn.textContent = "Fermer";
 
-// Ajout du bouton à la div "thanks"
-thanksDiv.appendChild(thanksMessageDiv);
+// Création de la div "thanksButton"
+const thanksButton = document.createElement('div');
+thanksButton.classList.add('thanksButton');
 
-// Ajout de la div "thanksMessage" à la div "thanks"
-thanksDiv.appendChild(closeBtn);
+// Ajout du bouton à la div "thanksButton"
+thanksButton.appendChild(closeBtn);
+
+// Ajout de la div "thanksButtonWrapper" à la div "thanks"
+thanksDiv.appendChild(thanksMessageDiv);
+thanksDiv.appendChild(thanksButton);
 
 // Insertion de la div "thanks" après le formulaire
 form.insertAdjacentElement('afterend', thanksDiv);
-
 // ----------------------------------------------------------------------------------------------------------------------------
 
 // On cache la div thanks
@@ -233,7 +239,7 @@ form.insertAdjacentElement('afterend', thanksDiv);
 function openThanks() {
   // on cache le form et on affiche le thanks message
   form.style.display = "none";
-  thanksDiv.style.display = "block";
+  thanksDiv.style.display = "flex";
   // on remonte la page  
   window.scrollTo(0, 0)
   // on efface les données du formulaire
@@ -242,5 +248,5 @@ function openThanks() {
 // ----------------------------------------------------------------------------------------------------------------------------
 // On peut quitter la modal en cliquant sur le bouton close 
 closeBtn.addEventListener('click', () => {
-  thanksDiv.style.display = "none";
+  closeModal();
 });
