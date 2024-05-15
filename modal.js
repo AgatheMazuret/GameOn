@@ -47,7 +47,7 @@ function closeModal() {
   // Change le style de l'élément avec la classe "bground" pour cacher le modal
   modalbg.style.display = "none";
 }
-
+// ----------------------------------------------------------------------------------------------------------------------------
 function validateForm() {
 
   const errors = []; // Tableau pour stocker les erreurs
@@ -183,8 +183,8 @@ function validateForm() {
 
     // Gestion des erreurs
     if (errors.length === 0) {
-      // Si oui, on affiche la div thanks
-      openThanks ();
+      // Si pas d'erreurs, on affiche la div thanks
+      openThanks();
     } else {
       // Afficher toutes les erreurs
       errors.forEach(error => console.error(error));
@@ -194,12 +194,11 @@ function validateForm() {
   }
 
 };
-
+// ----------------------------------------------------------------------------------------------------------------------------
 form.addEventListener("submit", (event) => {
-  event.preventDefault(); 
-  
+  event.preventDefault(); // Empêcher le formulaire de s'envoyer
 })
-
+// ----------------------------------------------------------------------------------------------------------------------------
 // Créer une page de validation avec la div thanks qui s'affiche si tous les champs sont valides
 
 // Création de la div "thanks"
@@ -224,18 +223,24 @@ thanksDiv.appendChild(closeBtn);
 
 // Insertion de la div "thanks" après le formulaire
 form.insertAdjacentElement('afterend', thanksDiv);
+
+// ----------------------------------------------------------------------------------------------------------------------------
+
 // On cache la div thanks
-// thanksDiv.style.display = "none";
-// Quand on clique sur le bouton submit, on vérifie si tous les champs sont valides
+ thanksDiv.style.display = "none";
+
+// ----------------------------------------------------------------------------------------------------------------------------
 function openThanks() {
-  // Hide the form and show the confirmation message
+  // on cache le form et on affiche le thanks message
   form.style.display = "none";
   thanksDiv.style.display = "block";
+  // on remonte la page  
+  window.scrollTo(0, 0)
+  // on efface les données du formulaire
+  form.reset();
 }
-
-// Si oui, on affiche la div thanks voir à la fin dans gestion des erreurs
-// Si non, on affiche les erreurs voir à la fin dans gestion des erreurs
-// On peut quitter la modal en cliquant sur le bouton close ou en cliquant en dehors de la modal
+// ----------------------------------------------------------------------------------------------------------------------------
+// On peut quitter la modal en cliquant sur le bouton close 
 closeBtn.addEventListener('click', () => {
   thanksDiv.style.display = "none";
 });
