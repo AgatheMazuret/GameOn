@@ -41,6 +41,9 @@ closebtn.forEach((btn) => btn.addEventListener("click", closeModal));
 function launchModal() {
   // Change le style de l'élément avec la classe "bground" pour afficher le modal
   modalbg.style.display = "block";
+  form.reset(); // Réinitialise les champs du formulaire
+  form.style.display = "block"; // Affiche le formulaire
+  thanksDiv.style.display = "none"; // Cache le message de remerciement
 }
 
 // Cette fonction est utilisée pour cacher le modal en changeant son style pour le rendre invisible.
@@ -49,8 +52,10 @@ function closeModal() {
   modalbg.style.display = "none";
   form.reset(); // Réinitialise les champs du formulaire
 }
+
 // ----------------------------------------------------------------------------------------------------------------------------
 function validateForm() {
+  // Objet pour stocker les données du formulaire
   const errors = []; // Tableau pour stocker les erreurs
 
   // Fonction pour ajouter un message d'erreur à un élément parent
@@ -69,6 +74,7 @@ function validateForm() {
       parentElement.removeAttribute("data-error");
     }
   }
+
   try {
     // Vérification du champ du prénom
     const valeurFirst = firstName.value.trim();
@@ -187,8 +193,10 @@ function validateForm() {
   } catch (error) {
     console.error(error.message);
   }
+
   return errors;
 }
+
 // ----------------------------------------------------------------------------------------------------------------------------
 form.addEventListener("submit", (event) => {
   event.preventDefault(); // Empêcher le formulaire de s'envoyer
@@ -199,6 +207,7 @@ form.addEventListener("submit", (event) => {
     openThanks();
   }
 });
+
 // ----------------------------------------------------------------------------------------------------------------------------
 // Créer une page de validation avec la div thanks qui s'affiche si tous les champs sont valides
 
@@ -229,8 +238,8 @@ thanksDiv.appendChild(thanksButton);
 
 // Insertion de la div "thanks" après le formulaire
 form.insertAdjacentElement("afterend", thanksDiv);
-// ----------------------------------------------------------------------------------------------------------------------------
 
+// ----------------------------------------------------------------------------------------------------------------------------
 // On cache la div thanks
 thanksDiv.style.display = "none";
 
@@ -241,9 +250,8 @@ function openThanks() {
   thanksDiv.style.display = "flex";
   // on remonte la page
   window.scrollTo(0, 0);
-  // on efface les données du formulaire
-  form.reset();
 }
+
 // ----------------------------------------------------------------------------------------------------------------------------
 // On peut quitter la modal en cliquant sur le bouton close
 closeBtn.addEventListener("click", () => {
